@@ -6,10 +6,19 @@ import { CatsService } from './cats/services/cats.service';
 import { FeaturesModule } from './features/features.module';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './logger.middleware';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './cats/guards/roles.guard';
 @Global()
 @Module({
   controllers: [AppController, CatsController],
-  providers: [AppService, CatsService],
+  providers: [
+    AppService,
+    CatsService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
   imports: [FeaturesModule, CatsModule],
   exports: [CatsService],
 })

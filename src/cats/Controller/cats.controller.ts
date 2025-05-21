@@ -1,10 +1,20 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateCatDto } from '../dto/create-cat.dto';
 import { Cat } from '../interfaces/cats.interface';
 import { CatsService } from '../services/cats.service';
+import { RolesGuard } from '../guards/roles.guard';
 
 @Controller('cats')
+@UseGuards(new RolesGuard())
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
@@ -14,5 +24,6 @@ export class CatsController {
   @Get()
   async findAll(): Promise<Cat[]> {
     return this.catsService.findAll();
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
 }

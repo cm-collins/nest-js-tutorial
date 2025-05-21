@@ -6,13 +6,17 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { RolesGuard } from './cats/guards/roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({ logger:true}),
+    new FastifyAdapter({ logger: true }),
   );
-  await app.listen(process.env.PORT ?? 3001);
+  app.useGlobalGuards(new RolesGuard());
+  const PORT = process.env.PORT || 3001;
+  await app.listen(PORT);
+  console.log(`Apllication is runnning successfully on port ${PORT}`);
 }
 
 bootstrap();
