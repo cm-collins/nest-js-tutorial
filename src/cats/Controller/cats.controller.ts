@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { CreateSessionOptions } from 'node:sqlite';
-import { Cat } from './interfaces/cats.interface';
-import { CatsService } from './services/cats.service';
+import { CreateCatDto } from '../dto/create-cat.dto';
+import { Cat } from '../interfaces/cats.interface';
+import { CatsService } from '../services/cats.service';
 
 @Controller('cats')
 export class CatsController {
