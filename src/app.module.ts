@@ -8,6 +8,8 @@ import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './cats/guards/roles.guard';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 @Global()
 @Module({
   controllers: [AppController, CatsController],
@@ -19,7 +21,7 @@ import { RolesGuard } from './cats/guards/roles.guard';
       useClass: RolesGuard,
     },
   ],
-  imports: [FeaturesModule, CatsModule],
+  imports: [FeaturesModule, CatsModule, AuthModule, UsersModule],
   exports: [CatsService],
 })
 export class AppModule implements NestModule {
